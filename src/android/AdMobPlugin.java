@@ -59,6 +59,7 @@ public class AdMobPlugin extends GenericAdPlugin {
   public static final String OPT_LOCATION = "location";
   private Location mLocation = null;
 
+  public static final String OPT_APP_ID = "appId";
   public static final String OPT_GENDER = "gender";
   public static final String OPT_FORCHILD = "forChild";
   public static final String OPT_FORFAMILY = "forFamily";
@@ -66,6 +67,7 @@ public class AdMobPlugin extends GenericAdPlugin {
   public static final String OPT_CUSTOMTARGETING = "customTargeting";
   public static final String OPT_EXCLUDE = "exclude";
 
+  protected String mAppId = null;
   protected String mGender = null;
   protected String mForChild = null;
   protected String mForFamily = null;
@@ -110,6 +112,11 @@ public class AdMobPlugin extends GenericAdPlugin {
     if(options.has(OPT_AD_SIZE)) adSize = adSizeFromString(options.optString(OPT_AD_SIZE));
     if(adSize == null) {
       adSize = new AdSize(adWidth, adHeight);
+    }
+
+    if(options.has(OPT_APP_ID)) {
+      mAppId = options.optString(OPT_APP_ID);
+      MobileAds.initialize(getActivity(), mAppId);
     }
 
     if(options.has(OPT_AD_EXTRAS)) adExtras = options.optJSONObject(OPT_AD_EXTRAS);
